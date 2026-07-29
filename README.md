@@ -10,7 +10,9 @@ fica parado por causa de um erro de uma aula anterior.
 
 1. Nesta página do GitHub, clique no botão verde **Code**.
 2. Clique em **Download ZIP**.
-3. Abra o arquivo ZIP que baixou e entre na pasta `aulas`.
+3. Abra o arquivo ZIP que baixou. Dentro dele tem uma pasta chamada
+   `agendamento-aulas-main`. Esse `-main` no fim é normal, é o GitHub que
+   acrescenta, não é erro. Entre nela e depois na pasta `aulas`.
 4. Entre na pasta da aula que o professor pediu (exemplo: `aula-04`).
 5. Copie os arquivos de dentro dela para a pasta do **seu** projeto
    (`agendamento-escola`), substituindo os que já existirem.
