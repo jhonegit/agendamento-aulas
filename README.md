@@ -2,7 +2,7 @@
 
 Este repositório guarda a **versão oficial** do projeto ao final de cada aula.
 
-Ele existe por um motivo simples: se o seu projeto bugou, ficou incompleto, ou
+Aqui é se o seu projeto bugou, ficou incompleto, ou
 você faltou, você pega a versão certa aqui e continua junto com a turma. Assim ninguém trava se perder uma aula.
 
 ## Como pegar a base de uma aula
