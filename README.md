@@ -1,33 +1,21 @@
-# Agendamento Escolar, base das aulas
+# Base das aulas, Agendamento Escolar
 
-Aqui fica a versão certa do projeto ao final de cada aula.
+Este repositório guarda a **versão oficial** do projeto ao final de cada aula.
 
-Use quando você faltou, quando seu projeto parou de funcionar, ou quando eu pedir
-em sala.
+Aqui é se o seu projeto bugou, ficou incompleto, ou
+você faltou, você pega a versão certa aqui e continua junto com a turma. Assim ninguém trava se perder uma aula.
 
-## Como baixar
+## Como pegar a base de uma aula
 
-1. Clique no botão verde **Code** e depois em **Download ZIP**.
-2. Abra o ZIP. Dentro vem uma pasta `agendamento-aulas-main`. Esse `-main` no
-   fim é normal, é o GitHub que acrescenta.
-3. Entre em `aulas` e depois na pasta da aula que eu pedi, por exemplo `aula-04`.
-4. Copie os arquivos de lá para a pasta do seu projeto `agendamento-escola`,
-   substituindo os que já existirem.
-5. No GitHub Desktop, escreva a mensagem `base da aula 04`, clique em
-   **Commit to main** e depois em **Push origin**.
+1. Aqui na página do GitHub, clicar no botão verde **Code**.
+2. Clicar em **Download ZIP**.
+3. Abrir o arquivo ZIP que baixou. Dentro dele tem uma pasta chamada
+   `agendamento-aulas-main`. Esse `-main` no fim é normal, é o GitHub que
+   acrescenta. Entre nela e depois na pasta `aulas`.
+4. Entre na pasta da aula que o professor pedir (exemplo: `aula-04`).
+5. Copiar os arquivos de dentro dela para a pasta do **seu** projeto
+   (`agendamento-escola`), substituindo os que já existirem.
+6. Abra o GitHub Desktop, escreva uma mensagem como `base da aula 04` e clique
+   em **Commit to main**. Depois clique em **Push origin**.
 
-## Dúvidas comuns
-
-**Vou perder meu trabalho?**
-Só o arquivo daquela aula. Cor, texto ou nome que você escolheu podem se perder,
-e isso é normal.
-
-**Minha versão estava errada?**
-Não. A daqui é só a versão que todos usam para continuar do mesmo ponto.
-
-**Preciso baixar toda aula?**
-Não. Uma vez por semana, ou quando eu pedir, ou quando seu projeto parar de
-funcionar.
-
-**Não achei a pasta da próxima aula.**
-Ela entra aqui depois que a aula acontece.
+Assim fica igual ao projeto oficial.
