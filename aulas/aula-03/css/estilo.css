@@ -1,0 +1,302 @@
+/* ============================================================
+   ARQUIVO: estilo.css
+   O QUE ELE FAZ: cuida da aparência de todas as telas.
+
+   O arquivo está dividido em partes numeradas. Use a busca do
+   VS Code (Ctrl + F) pelo texto "PARTE" para pular de uma para
+   a outra.
+   ============================================================ */
+
+
+/* ============================================================
+   PARTE 1 - AS CORES DO SISTEMA
+
+   Em vez de repetir o código da cor em vários lugares, damos um
+   nome para cada uma aqui em cima. Se um dia a escola quiser
+   mudar o azul, basta trocar em um lugar só.
+
+   O ":root" quer dizer "a página inteira".
+   ============================================================ */
+:root {
+  --azul-escuro: #1f5f8b;
+  --azul-claro: #e8f1f7;
+  --azul-hover: #185070;
+
+  --texto: #1c2733;
+  --texto-fraco: #64748b;
+  --borda: #d6dee6;
+  --fundo-pagina: #f4f6f9;
+  --branco: #ffffff;
+
+  --arredondamento: 10px;
+  --sombra: 0 2px 8px rgba(28, 39, 51, 0.08);
+}
+
+
+/* ============================================================
+   PARTE 2 - AJUSTES GERAIS
+   ============================================================ */
+
+/* O "*" significa "todos os elementos da página".
+   box-sizing evita que padding e borda estourem a largura. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--texto);
+  background-color: var(--fundo-pagina);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+
+/* ============================================================
+   PARTE 3 - BOTÕES
+   ============================================================ */
+
+.botao {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: var(--arredondamento);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+/* Botão azul, usado nas ações principais */
+.botao-principal {
+  background-color: var(--azul-escuro);
+  color: var(--branco);
+  width: 100%;
+}
+
+.botao-principal:hover {
+  background-color: var(--azul-hover);
+}
+
+/* Um link (tag <a>) não é botão. Estas três linhas fazem ele
+   parecer um. Quando o login de verdade entrar no lugar dele,
+   esta regra sai daqui. */
+a.botao {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+}
+
+
+/* ============================================================
+   PARTE 4 - TELA DE ENTRADA (index.html)
+   ============================================================ */
+
+.pagina-entrada {
+  /* Centraliza o cartão na horizontal e na vertical */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.cartao-entrada {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--branco);
+  border-radius: 16px;
+  box-shadow: var(--sombra);
+  padding: 28px 24px 24px 24px;
+}
+
+.cabecalho-entrada {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.cabecalho-entrada h1 {
+  font-size: 21px;
+  margin: 10px 0 2px 0;
+}
+
+.subtitulo {
+  margin: 0;
+  font-size: 14px;
+  color: var(--texto-fraco);
+}
+
+
+/* ============================================================
+   PARTE 5 - BARRA DO TOPO DA GRADE (grade.html)
+   ============================================================ */
+
+.barra-topo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background-color: var(--azul-escuro);
+  color: var(--branco);
+}
+
+.titulo-topo {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+
+/* ============================================================
+   PARTE 6 - A ÁREA DE CONTEÚDO DA GRADE
+   ============================================================ */
+
+.conteudo {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 16px 40px 16px;
+}
+
+.titulo-da-pagina {
+  font-size: 20px;
+  margin: 0 0 14px 0;
+}
+
+
+/* ============================================================
+   PARTE 7 - A TABELA DA GRADE
+
+   Por enquanto a tabela é fixa: os dias e os horários estão
+   escritos na mão dentro do grade.html.
+   ============================================================ */
+
+.grade {
+  /* "separate" com espaçamento zero deixa as bordas encostadas
+     sem grudar uma na outra. */
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+
+  background-color: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: var(--arredondamento);
+  box-shadow: var(--sombra);
+
+  /* Sem esta linha, a faixa colorida do cabeçalho vaza por cima
+     dos cantos arredondados. */
+  overflow: hidden;
+}
+
+/* A faixa de cima, com os nomes dos dias */
+.grade thead th {
+  background-color: var(--azul-claro);
+  border-bottom: 1px solid var(--borda);
+  padding: 8px 6px;
+  font-size: 14px;
+}
+
+/* Cada coluna de dia tem uma largura mínima, para o nome do
+   professor caber quando as reservas chegarem. */
+.coluna-dia {
+  min-width: 128px;
+}
+
+/* A coluna da esquerda, que diz de que horário é a linha */
+.coluna-horario {
+  min-width: 120px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+  padding: 8px;
+  border-right: 1px solid var(--borda);
+  border-bottom: 1px solid var(--borda);
+}
+
+/* As células comuns, uma para cada dia de cada horário */
+.grade td {
+  border-bottom: 1px solid var(--borda);
+  border-right: 1px solid var(--borda);
+  padding: 4px;
+  height: 46px;
+  vertical-align: top;
+}
+
+
+/* ============================================================
+   PARTE 8 - O QUE FICA DENTRO DE CADA CÉLULA
+
+   Cada célula da grade mostra os dois espaços da escola, um
+   embaixo do outro:
+
+       BIB   livre
+       LAB   livre
+
+   O botão ainda não faz nada quando é clicado. Ele já está
+   aqui porque é ele que, mais para frente, vai abrir a
+   janelinha de reserva.
+   ============================================================ */
+
+.botao-da-celula {
+  /* "column" empilha as duas faixinhas, uma embaixo da outra.
+     Sem essa linha elas ficariam lado a lado. */
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  width: 100%;
+  padding: 3px;
+  border: none;
+  border-radius: 7px;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Quando o mouse passa por cima da célula, ela se acende.
+   Serve para o usuário perceber que aquilo pode ser clicado. */
+.botao-da-celula:hover {
+  background-color: var(--azul-claro);
+}
+
+
+/* --- Uma faixinha, ou seja, um espaço dentro da célula --- */
+.faixa {
+  /* Aqui o flex deixa a sigla e o texto lado a lado */
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 4px 6px;
+  border-radius: 5px;
+  font-size: 12px;
+
+  /* A borda já nasce ocupando lugar, mesmo sendo transparente.
+     Assim a faixa não muda de tamanho quando ganhar cor. */
+  border: 1px solid transparent;
+  border-left-width: 4px;
+}
+
+/* A sigla curta do espaço: BIB ou LAB */
+.sigla {
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  opacity: 0.75;
+}
+
+/* O texto do lado da sigla. Hoje é sempre a palavra "livre".
+   Mais para frente vai ser o nome de quem reservou. */
+.texto-da-faixa {
+  /* Se o texto for grande demais, o navegador corta com "..." */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Espaço livre: fundo claro, letra discreta, borda tracejada */
+.faixa livre {
+  background-color: #eef2f6;
+  color: var(--texto-fraco);
+  border-color: var(--borda);
+  border-style: dashed;
+}
