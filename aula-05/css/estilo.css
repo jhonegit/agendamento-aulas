@@ -342,7 +342,7 @@ a.botao {
 
   font-size: 12px;
   font-weight: 700;
-  color: var(--azul-escuro);
+  color: var(--branco);
 }
 
 /* A faixa de horas, do lado da bolinha */
@@ -367,4 +367,61 @@ a.botao {
   letter-spacing: 0.4px;
   padding: 7px;
   border-right: none;
+}
+
+
+/* ============================================================
+   PARTE 10 - A CAIXA QUE DEIXA ARRASTAR A GRADE
+
+   A tabela tem seis colunas e não cabe na tela de um celular.
+   Encolher a tabela não resolve, porque aí as palavras ficam
+   pequenas demais para ler.
+
+   A saída é outra: a tabela continua do tamanho que precisa,
+   e por fora dela entra uma caixa. É a caixa que deixa a
+   pessoa arrastar a tabela para os lados com o dedo.
+
+   As regras entram aqui embaixo.
+   ============================================================ */
+
+
+/* ============================================================
+   PARTE 11 - AJUSTES PARA TELA DE CELULAR
+
+   Tudo que está dentro das chaves do "@media" só vale quando
+   a tela tem no máximo 600px de largura, que é o tamanho da
+   maioria dos celulares. Numa tela maior, o navegador pula
+   este pedaço inteiro.
+   ============================================================ */
+
+@media (min-width: 600px) {
+
+  .conteudo {
+    padding: 12px 10px 30px 10px;
+  }
+
+  .titulo-da-pagina {
+    font-size: 17px;
+  }
+
+  /* No celular não cabe a bolinha do lado das horas. Aqui elas
+     passam a ficar uma em cima da outra. */
+  .coluna-horario {
+    min-width: 78px;
+    padding: 6px 4px;
+  }
+
+  .caixa-do-horario {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .faixa-de-horas {
+    font-size: 11px;
+  }
+
+  .faixa {
+    font-size: 11px;
+  }
+
 }
