@@ -23,6 +23,21 @@
 
     <h1 class="titulo-da-pagina">Grade da semana</h1>
 
+    <!-- ==============================================================
+         A LEGENDA: diz o que cada cor da grade quer dizer.
+
+         Os quadradinhos são os <span class="amostra">. Eles estão
+         vazios de propósito: quem dá cor e tamanho a eles é o CSS.
+         ============================================================== -->
+    <section class="legenda">
+      <span class="item-legenda"><span class="amostra amostra-livre"></span> Livre</span>
+      <span class="item-legenda"><span class="amostra amostra-biblioteca"></span> Biblioteca ocupada</span>
+      <span class="item-legenda"><span class="amostra amostra-laboratorio"></span> Laboratório ocupado</span>
+      <span class="item-legenda"><span class="amostra amostra-minha"></span> Reserva minha</span>
+    </section>
+
+    <div class="rolagem-grade">
+
     <table class="grade">
 
       <thead>
@@ -53,9 +68,9 @@
           <td>
             <button type="button" class="botao-da-celula">
 
-              <span class="faixa faixa-livre">
+              <span class="faixa faixa-ocupada faixa-biblioteca">
                 <span class="sigla">BIB</span>
-                <span class="texto-da-faixa">livre</span>
+                <span class="texto-da-faixa">Ana</span>
               </span>
 
               <span class="faixa faixa-livre">
@@ -90,9 +105,9 @@
                 <span class="texto-da-faixa">livre</span>
               </span>
 
-              <span class="faixa faixa-livre">
+              <span class="faixa faixa-ocupada faixa-laboratorio faixa-minha">
                 <span class="sigla">LAB</span>
-                <span class="texto-da-faixa">livre</span>
+                <span class="texto-da-faixa">Jhonn</span>
               </span>
 
             </button>
@@ -164,9 +179,9 @@
                 <span class="texto-da-faixa">livre</span>
               </span>
 
-              <span class="faixa faixa-livre">
+              <span class="faixa faixa-ocupada faixa-laboratorio">
                 <span class="sigla">LAB</span>
-                <span class="texto-da-faixa">livre</span>
+                <span class="texto-da-faixa">Carlos</span>
               </span>
 
             </button>
@@ -233,14 +248,14 @@
           <td>
             <button type="button" class="botao-da-celula">
 
-              <span class="faixa faixa-livre">
+              <span class="faixa faixa-ocupada faixa-biblioteca">
                 <span class="sigla">BIB</span>
-                <span class="texto-da-faixa">livre</span>
+                <span class="texto-da-faixa">Rui</span>
               </span>
 
-              <span class="faixa faixa-livre">
+              <span class="faixa faixa-ocupada faixa-laboratorio">
                 <span class="sigla">LAB</span>
-                <span class="texto-da-faixa">livre</span>
+                <span class="texto-da-faixa">Márcia</span>
               </span>
 
             </button>
@@ -465,9 +480,9 @@
           <td>
             <button type="button" class="botao-da-celula">
 
-              <span class="faixa faixa-livre">
+              <span class="faixa faixa-ocupada faixa-biblioteca faixa-minha">
                 <span class="sigla">BIB</span>
-                <span class="texto-da-faixa">livre</span>
+                <span class="texto-da-faixa">Jhonn</span>
               </span>
 
               <span class="faixa faixa-livre">
@@ -576,9 +591,9 @@
                 <span class="texto-da-faixa">livre</span>
               </span>
 
-              <span class="faixa faixa-livre">
+              <span class="faixa faixa-ocupada faixa-laboratorio">
                 <span class="sigla">LAB</span>
-                <span class="texto-da-faixa">livre</span>
+                <span class="texto-da-faixa">Ana</span>
               </span>
 
             </button>
@@ -703,9 +718,9 @@
           <td>
             <button type="button" class="botao-da-celula">
 
-              <span class="faixa faixa-livre">
+              <span class="faixa faixa-ocupada faixa-biblioteca">
                 <span class="sigla">BIB</span>
-                <span class="texto-da-faixa">livre</span>
+                <span class="texto-da-faixa">Carlos</span>
               </span>
 
               <span class="faixa faixa-livre">
@@ -769,6 +784,8 @@
       </tbody>
 
     </table>
+
+    </div>
 
   </main>
 

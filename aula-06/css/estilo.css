@@ -22,6 +22,17 @@
   --azul-claro: #e8f1f7;
   --azul-hover: #185070;
 
+  /* As cores dos dois espaços da escola. Cada espaço tem uma cor
+     forte, que vai na borda, e uma clarinha, que vai no fundo. */
+  --biblioteca: #0f766e;         /* verde: cor da Biblioteca */
+  --biblioteca-fundo: #d7f0ec;
+
+  --laboratorio: #6d28d9;        /* roxo: cor do Laboratório */
+  --laboratorio-fundo: #ebe2fb;
+
+  /* A reserva do próprio professor usa o azul do sistema */
+  --minha-fundo: #cbe3f5;
+
   --texto: #1c2733;
   --texto-fraco: #64748b;
   --borda: #d6dee6;
@@ -148,6 +159,9 @@ a.botao {
 
 /* ============================================================
    PARTE 6 - A ÁREA DE CONTEÚDO DA GRADE
+
+   Aqui ficam as três coisas que aparecem antes da tabela: a
+   margem da página, o título e a legenda das cores.
    ============================================================ */
 
 .conteudo {
@@ -160,6 +174,24 @@ a.botao {
   font-size: 20px;
   margin: 0 0 14px 0;
 }
+
+
+/* --- A legenda das cores, logo abaixo do título ---
+
+   Ela é uma fileira de itens, e cada item é um quadradinho
+   colorido com uma palavra do lado.
+
+   As três regras que dão forma à legenda entram aqui embaixo. */
+
+
+
+
+/* A cor de cada quadradinho. Repare que são as mesmas cores das
+   faixas da grade, porque saem das mesmas linhas da PARTE 1. */
+.amostra-livre { background-color: #eef2f6; }
+.amostra-biblioteca { background-color: var(--biblioteca-fundo); border-color: var(--biblioteca); }
+.amostra-laboratorio { background-color: var(--laboratorio-fundo); border-color: var(--laboratorio); }
+.amostra-minha { background-color: var(--minha-fundo); border-color: var(--azul-escuro); }
 
 
 /* ============================================================
@@ -229,7 +261,7 @@ a.botao {
    embaixo do outro:
 
        BIB   livre
-       LAB   livre
+       LAB   Márcia
 
    O botão ainda não faz nada quando é clicado. Ele já está
    aqui porque é ele que, mais para frente, vai abrir a
@@ -284,8 +316,8 @@ a.botao {
   opacity: 0.75;
 }
 
-/* O texto do lado da sigla. Hoje é sempre a palavra "livre".
-   Mais para frente vai ser o nome de quem reservou. */
+/* O texto do lado da sigla: a palavra "livre", ou o nome de
+   quem reservou. */
 .texto-da-faixa {
   /* Se o texto for grande demais, o navegador corta com "..." */
   white-space: nowrap;
@@ -299,6 +331,40 @@ a.botao {
   color: var(--texto-fraco);
   border-color: var(--borda);
   border-style: dashed;
+}
+
+
+/* --- Espaço já reservado ---
+
+   Uma faixa ocupada leva duas classes de uma vez no HTML:
+   "faixa-ocupada", que vale para as duas, e depois a do espaço,
+   que é "faixa-biblioteca" ou "faixa-laboratorio". */
+
+.faixa-ocupada {
+  font-weight: 600;
+}
+
+/* A reserva feita pelo próprio professor que está usando o
+   sistema. Ela fica azul, para ele achar as dele de longe no
+   meio das outras. */
+.faixa-minha {
+  background-color: var(--minha-fundo);
+  color: var(--azul-escuro);
+  border-left-color: var(--azul-escuro);
+}
+
+/* Biblioteca ocupada: verde */
+.faixa-biblioteca {
+  background-color: var(--biblioteca-fundo);
+  color: #0a544e;
+  border-left-color: var(--biblioteca);
+}
+
+/* Laboratório ocupado: roxo */
+.faixa-laboratorio {
+  background-color: var(--laboratorio-fundo);
+  color: #4c1d95;
+  border-left-color: var(--laboratorio);
 }
 
 
@@ -380,9 +446,26 @@ a.botao {
    A saída é outra: a tabela continua do tamanho que precisa,
    e por fora dela entra uma caixa. É a caixa que deixa a
    pessoa arrastar a tabela para os lados com o dedo.
-
-   As regras entram aqui embaixo.
    ============================================================ */
+
+/* A caixa que segura a tabela por fora */
+.rolagem-grade {
+  overflow-x: auto;
+}
+
+/* A tabela nunca fica mais estreita que 720px */
+.grade {
+  min-width: 720px;
+  overflow: visible;
+}
+
+/* A coluna dos horários fica presa na esquerda */
+.coluna-horario {
+  position: sticky;
+  left: 0;
+  background-color: var(--azul-claro);
+  z-index: 2;
+}
 
 
 /* ============================================================
@@ -394,7 +477,7 @@ a.botao {
    este pedaço inteiro.
    ============================================================ */
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
 
   .conteudo {
     padding: 12px 10px 30px 10px;
@@ -402,6 +485,13 @@ a.botao {
 
   .titulo-da-pagina {
     font-size: 17px;
+  }
+
+  /* No celular a legenda aperta um pouco, para caber em duas
+     linhas em vez de quatro. */
+  .legenda {
+    gap: 10px;
+    font-size: 12px;
   }
 
   /* No celular não cabe a bolinha do lado das horas. Aqui elas
