@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade da Semana - Agendamento Escolar</title>
+
+  <!-- Nosso arquivo de estilos -->
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+
+<body class="pagina-grade">
+
+  <!-- ==============================================================
+       BARRA DO TOPO: a faixa azul com o nome do sistema
+       ============================================================== -->
+  <header class="barra-topo">
+    <span class="titulo-topo">Agendamento Escolar</span>
+  </header>
+
+
+  <main class="conteudo">
+
+    <h1 class="titulo-da-pagina">Grade da semana</h1>
+
+    <!-- ==============================================================
+         O AVISO DE PROBLEMA COM O BANCO
+
+         Esta linha nasce escondida, por causa da classe "escondido".
+         Ninguém vê ela em dia normal.
+
+         O js/reservas.js só mostra ela quando o banco não responde,
+         para a tela não ficar em branco sem explicar o motivo.
+
+         O id serve para o JavaScript achar este pedaço exato da
+         página. É o mesmo id que aparece lá no reservas.js.
+         ============================================================== -->
+    <p class="mensagem mensagem-erro escondido" id="aviso-do-banco"></p>
+
+    <!-- ==============================================================
+         A LEGENDA: diz o que cada cor da grade quer dizer.
+
+         Os quadradinhos são os <span class="amostra">. Eles estão
+         vazios de propósito: quem dá cor e tamanho a eles é o CSS.
+         ============================================================== -->
+    <section class="legenda">
+      <span class="item-legenda"><span class="amostra amostra-livre"></span> Livre</span>
+      <span class="item-legenda"><span class="amostra amostra-biblioteca"></span> Biblioteca ocupada</span>
+      <span class="item-legenda"><span class="amostra amostra-laboratorio"></span> Laboratório ocupado</span>
+      <span class="item-legenda"><span class="amostra amostra-minha"></span> Reserva minha</span>
+    </section>
+
+    <div class="rolagem-grade">
+
+    <table class="grade">
+
+      <thead>
+        <tr>
+          <th class="coluna-horario">Horário</th>
+          <th class="coluna-dia">Segunda</th>
+          <th class="coluna-dia">Terça</th>
+          <th class="coluna-dia">Quarta</th>
+          <th class="coluna-dia">Quinta</th>
+          <th class="coluna-dia">Sexta</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <!-- ==========================================================
+             AS LINHAS DOS HORÁRIOS
+
+             Repare que agora toda faixinha nasce "livre", e que cada
+             uma ganhou um id. O id é montado sempre do mesmo jeito:
+
+                 dia - horário - espaço
+
+             Exemplo: segunda-07:30-08:30-biblioteca
+
+             É por esse nome que o js/reservas.js acha a faixinha certa
+             para pintar quando a resposta do banco chega. O texto de
+             dentro tem o mesmo nome com "-nome" no fim.
+             ========================================================== -->
+
+        <tr>
+          <th class="coluna-horario">
+            <div class="caixa-do-horario">
+              <span class="numero-do-horario">1º</span>
+              <span class="faixa-de-horas">07:30-08:30</span>
+            </div>
+          </th>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="segunda-07:30-08:30-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="segunda-07:30-08:30-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="segunda-07:30-08:30-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="segunda-07:30-08:30-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="terca-07:30-08:30-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="terca-07:30-08:30-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="terca-07:30-08:30-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="terca-07:30-08:30-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quarta-07:30-08:30-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quarta-07:30-08:30-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quarta-07:30-08:30-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quarta-07:30-08:30-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quinta-07:30-08:30-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quinta-07:30-08:30-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quinta-07:30-08:30-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quinta-07:30-08:30-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="sexta-07:30-08:30-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="sexta-07:30-08:30-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="sexta-07:30-08:30-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="sexta-07:30-08:30-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+        </tr>
+
+        <tr>
+          <th class="coluna-horario">
+            <div class="caixa-do-horario">
+              <span class="numero-do-horario">2º</span>
+              <span class="faixa-de-horas">08:30-09:30</span>
+            </div>
+          </th>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="segunda-08:30-09:30-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="segunda-08:30-09:30-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="segunda-08:30-09:30-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="segunda-08:30-09:30-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="terca-08:30-09:30-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="terca-08:30-09:30-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="terca-08:30-09:30-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="terca-08:30-09:30-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quarta-08:30-09:30-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quarta-08:30-09:30-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quarta-08:30-09:30-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quarta-08:30-09:30-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quinta-08:30-09:30-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quinta-08:30-09:30-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quinta-08:30-09:30-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quinta-08:30-09:30-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="sexta-08:30-09:30-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="sexta-08:30-09:30-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="sexta-08:30-09:30-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="sexta-08:30-09:30-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+        </tr>
+
+        <tr>
+          <th class="coluna-horario">
+            <div class="caixa-do-horario">
+              <span class="numero-do-horario">3º</span>
+              <span class="faixa-de-horas">09:50-10:50</span>
+            </div>
+          </th>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="segunda-09:50-10:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="segunda-09:50-10:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="segunda-09:50-10:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="segunda-09:50-10:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="terca-09:50-10:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="terca-09:50-10:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="terca-09:50-10:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="terca-09:50-10:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quarta-09:50-10:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quarta-09:50-10:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quarta-09:50-10:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quarta-09:50-10:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quinta-09:50-10:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quinta-09:50-10:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quinta-09:50-10:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quinta-09:50-10:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="sexta-09:50-10:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="sexta-09:50-10:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="sexta-09:50-10:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="sexta-09:50-10:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+        </tr>
+
+        <tr>
+          <th class="coluna-horario">
+            <div class="caixa-do-horario">
+              <span class="numero-do-horario">4º</span>
+              <span class="faixa-de-horas">10:50-11:50</span>
+            </div>
+          </th>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="segunda-10:50-11:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="segunda-10:50-11:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="segunda-10:50-11:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="segunda-10:50-11:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="terca-10:50-11:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="terca-10:50-11:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="terca-10:50-11:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="terca-10:50-11:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quarta-10:50-11:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quarta-10:50-11:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quarta-10:50-11:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quarta-10:50-11:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quinta-10:50-11:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quinta-10:50-11:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quinta-10:50-11:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quinta-10:50-11:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="sexta-10:50-11:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="sexta-10:50-11:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="sexta-10:50-11:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="sexta-10:50-11:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+        </tr>
+
+        <tr class="linha-intervalo">
+          <td colspan="6">ALMOÇO</td>
+        </tr>
+
+        <tr>
+          <th class="coluna-horario">
+            <div class="caixa-do-horario">
+              <span class="numero-do-horario">5º</span>
+              <span class="faixa-de-horas">13:00-14:00</span>
+            </div>
+          </th>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="segunda-13:00-14:00-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="segunda-13:00-14:00-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="segunda-13:00-14:00-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="segunda-13:00-14:00-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="terca-13:00-14:00-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="terca-13:00-14:00-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="terca-13:00-14:00-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="terca-13:00-14:00-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quarta-13:00-14:00-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quarta-13:00-14:00-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quarta-13:00-14:00-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quarta-13:00-14:00-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quinta-13:00-14:00-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quinta-13:00-14:00-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quinta-13:00-14:00-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quinta-13:00-14:00-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="sexta-13:00-14:00-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="sexta-13:00-14:00-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="sexta-13:00-14:00-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="sexta-13:00-14:00-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+        </tr>
+
+        <tr>
+          <th class="coluna-horario">
+            <div class="caixa-do-horario">
+              <span class="numero-do-horario">6º</span>
+              <span class="faixa-de-horas">14:00-14:50</span>
+            </div>
+          </th>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="segunda-14:00-14:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="segunda-14:00-14:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="segunda-14:00-14:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="segunda-14:00-14:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="terca-14:00-14:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="terca-14:00-14:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="terca-14:00-14:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="terca-14:00-14:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quarta-14:00-14:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quarta-14:00-14:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quarta-14:00-14:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quarta-14:00-14:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quinta-14:00-14:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quinta-14:00-14:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quinta-14:00-14:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quinta-14:00-14:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="sexta-14:00-14:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="sexta-14:00-14:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="sexta-14:00-14:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="sexta-14:00-14:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+        </tr>
+
+        <tr>
+          <th class="coluna-horario">
+            <div class="caixa-do-horario">
+              <span class="numero-do-horario">7º</span>
+              <span class="faixa-de-horas">15:10-16:00</span>
+            </div>
+          </th>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="segunda-15:10-16:00-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="segunda-15:10-16:00-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="segunda-15:10-16:00-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="segunda-15:10-16:00-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="terca-15:10-16:00-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="terca-15:10-16:00-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="terca-15:10-16:00-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="terca-15:10-16:00-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quarta-15:10-16:00-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quarta-15:10-16:00-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quarta-15:10-16:00-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quarta-15:10-16:00-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quinta-15:10-16:00-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quinta-15:10-16:00-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quinta-15:10-16:00-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quinta-15:10-16:00-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="sexta-15:10-16:00-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="sexta-15:10-16:00-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="sexta-15:10-16:00-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="sexta-15:10-16:00-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+        </tr>
+
+        <tr>
+          <th class="coluna-horario">
+            <div class="caixa-do-horario">
+              <span class="numero-do-horario">8º</span>
+              <span class="faixa-de-horas">16:00-16:50</span>
+            </div>
+          </th>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="segunda-16:00-16:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="segunda-16:00-16:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="segunda-16:00-16:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="segunda-16:00-16:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="terca-16:00-16:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="terca-16:00-16:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="terca-16:00-16:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="terca-16:00-16:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quarta-16:00-16:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quarta-16:00-16:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quarta-16:00-16:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quarta-16:00-16:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="quinta-16:00-16:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="quinta-16:00-16:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="quinta-16:00-16:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="quinta-16:00-16:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+          <td>
+            <button type="button" class="botao-da-celula">
+
+              <span class="faixa faixa-livre" id="sexta-16:00-16:50-biblioteca">
+                <span class="sigla">BIB</span>
+                <span class="texto-da-faixa" id="sexta-16:00-16:50-biblioteca-nome">livre</span>
+              </span>
+
+              <span class="faixa faixa-livre" id="sexta-16:00-16:50-laboratorio">
+                <span class="sigla">LAB</span>
+                <span class="texto-da-faixa" id="sexta-16:00-16:50-laboratorio-nome">livre</span>
+              </span>
+
+            </button>
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+    </div>
+
+  </main>
+
+
+  <!-- ==============================================================
+       OS SCRIPTS
+
+       Um <script> traz um arquivo de JavaScript para dentro da
+       página. Eles ficam aqui no fim, depois de todo o conteúdo,
+       porque o JavaScript precisa que a página já exista para
+       poder mexer nela.
+
+       A ORDEM IMPORTA. Cada arquivo usa alguma coisa que o de cima
+       criou. Trocar a ordem quebra tudo.
+       ============================================================== -->
+
+  <!-- 1. O Firebase em si. Estes dois arquivos não são nossos,
+          vêm prontos do próprio Google. -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <!-- 2. O endereço do nosso banco -->
+  <script src="js/firebase-config.js"></script>
+
+  <!-- 3. O nosso código, que pergunta ao banco -->
+  <script src="js/reservas.js"></script>
+
+
+  <!-- O que esta página faz: -->
+
+</body>
+</html>

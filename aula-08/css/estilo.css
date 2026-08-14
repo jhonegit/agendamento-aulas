@@ -176,15 +176,63 @@ a.botao {
 }
 
 
+/* --- Esconder um pedaço da página ---
+
+   Quem tem esta classe some da tela. Serve para deixar um aviso
+   pronto no HTML e mostrar só na hora em que ele fizer falta. */
+
+.escondido {
+  display: none !important;
+}
+
+
+/* --- A caixa de aviso, quando o banco não responde ---
+
+   Ela nasce escondida. O js/reservas.js só mostra ela quando dá
+   errado: sem internet, endereço do banco errado, banco fora do
+   ar. Em dia normal ninguém vê esta caixa. */
+
+.mensagem {
+  margin: 0 0 14px 0;
+  padding: 11px 13px;
+  border-radius: var(--arredondamento);
+  font-size: 14px;
+}
+
+.mensagem-erro {
+  background-color: #fdecea;
+  color: #b42318;
+  border: 1px solid #f5c2bd;
+}
+
+
 /* --- A legenda das cores, logo abaixo do título ---
 
    Ela é uma fileira de itens, e cada item é um quadradinho
-   colorido com uma palavra do lado.
+   colorido com uma palavra do lado. */
 
-   As três regras que dão forma à legenda entram aqui embaixo. */
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--texto-fraco);
+  margin-bottom: 12px;
+}
 
+.item-legenda {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 
-
+.amostra {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid var(--borda);
+  display: inline-block;
+}
 
 /* A cor de cada quadradinho. Repare que são as mesmas cores das
    faixas da grade, porque saem das mesmas linhas da PARTE 1. */
@@ -344,15 +392,6 @@ a.botao {
   font-weight: 600;
 }
 
-/* A reserva feita pelo próprio professor que está usando o
-   sistema. Ela fica azul, para ele achar as dele de longe no
-   meio das outras. */
-.faixa-minha {
-  background-color: var(--minha-fundo);
-  color: var(--azul-escuro);
-  border-left-color: var(--azul-escuro);
-}
-
 /* Biblioteca ocupada: verde */
 .faixa-biblioteca {
   background-color: var(--biblioteca-fundo);
@@ -365,6 +404,18 @@ a.botao {
   background-color: var(--laboratorio-fundo);
   color: #4c1d95;
   border-left-color: var(--laboratorio);
+}
+
+/* A reserva feita pelo próprio professor que está usando o
+   sistema. Ela fica azul, para ele achar as dele de longe no
+   meio das outras.
+
+   Esta regra fica embaixo das duas de cima de propósito. As três
+   mandam nas mesmas coisas, e a de baixo é a que vence. */
+.faixa-minha {
+  background-color: var(--minha-fundo);
+  color: var(--azul-escuro);
+  border-left-color: var(--azul-escuro);
 }
 
 
