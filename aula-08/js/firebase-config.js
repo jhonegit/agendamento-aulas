@@ -9,6 +9,29 @@
 
 
 /* ------------------------------------------------------------
+   0) O FIREBASE CHEGOU?
+
+   Os dois arquivos do Google, lá no fim do grade.html, também
+   vêm pela internet. Sem internet eles não chegam, e aí nada
+   deste arquivo funciona.
+
+   Este pedaço avisa na tela quando isso acontece. Sem ele, a
+   página abriria com a grade toda livre e ninguém saberia se o
+   problema é a internet ou o código.
+   ------------------------------------------------------------ */
+if (typeof firebase === "undefined") {
+
+  var avisoSemFirebase = document.getElementById("aviso-do-banco");
+
+  avisoSemFirebase.textContent =
+    "Esta página não conseguiu carregar o Firebase. " +
+    "Confira a internet e abra de novo.";
+
+  avisoSemFirebase.className = "mensagem mensagem-erro";
+}
+
+
+/* ------------------------------------------------------------
    1) O ENDEREÇO DO BANCO
 
    Estas seis linhas são o endereço do projeto no Firebase. Elas
