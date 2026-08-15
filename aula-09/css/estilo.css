@@ -89,13 +89,15 @@ body {
   background-color: var(--azul-hover);
 }
 
-/* Um link (tag <a>) não é botão. Estas três linhas fazem ele
-   parecer um. Quando o login de verdade entrar no lugar dele,
-   esta regra sai daqui. */
-a.botao {
-  display: block;
-  text-align: center;
-  text-decoration: none;
+/* Botão branco, usado nas ações secundárias, como o "Sair" */
+.botao-secundario {
+  background-color: var(--branco);
+  color: var(--texto);
+  border-color: var(--borda);
+}
+
+.botao-secundario:hover {
+  background-color: var(--azul-claro);
 }
 
 
@@ -138,22 +140,101 @@ a.botao {
 }
 
 
+/* --- As duas abas: Entrar e Criar conta --- */
+
+.abas {
+  display: flex;
+  gap: 6px;
+  background-color: var(--fundo-pagina);
+  padding: 4px;
+  border-radius: var(--arredondamento);
+  margin-bottom: 20px;
+}
+
+.aba {
+  flex: 1;                       /* as duas dividem o espaço igualmente */
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 9px;
+  border: none;
+  border-radius: 7px;
+  background: none;
+  color: var(--texto-fraco);
+  cursor: pointer;
+}
+
+/* A aba que está valendo agora fica branca e destacada */
+.aba-ativa {
+  background-color: var(--branco);
+  color: var(--azul-escuro);
+  box-shadow: var(--sombra);
+}
+
+
+/* --- Os campos dos dois formulários --- */
+
+.formulario label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.formulario input,
+.formulario select {
+  width: 100%;
+  font-family: inherit;
+  font-size: 15px;
+  padding: 11px 12px;
+  margin-bottom: 16px;
+  border: 1px solid var(--borda);
+  border-radius: var(--arredondamento);
+  background-color: var(--branco);
+  color: var(--texto);
+}
+
+/* O contorno azul que aparece no campo onde você está digitando */
+.formulario input:focus,
+.formulario select:focus {
+  outline: 2px solid var(--azul-escuro);
+  outline-offset: 1px;
+}
+
+
 /* ============================================================
    PARTE 5 - BARRA DO TOPO DA GRADE (grade.html)
    ============================================================ */
 
+/* justify-content: space-between joga um lado para cada ponta.
+   flex-wrap deixa o segundo lado descer para baixo, no celular. */
 .barra-topo {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
+  flex-wrap: wrap;
   padding: 10px 16px;
   background-color: var(--azul-escuro);
   color: var(--branco);
 }
 
+.barra-topo-esquerda,
+.barra-topo-direita {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .titulo-topo {
   font-size: 17px;
   font-weight: 700;
+}
+
+/* O nome de quem entrou, do lado do botão Sair */
+.identificacao {
+  font-size: 14px;
+  opacity: 0.95;
 }
 
 
@@ -203,6 +284,13 @@ a.botao {
   background-color: #fdecea;
   color: #b42318;
   border: 1px solid #f5c2bd;
+}
+
+/* A mesma caixa, na cor de quando deu certo */
+.mensagem-sucesso {
+  background-color: #e7f6ec;
+  color: #15803d;
+  border: 1px solid #b9e2c8;
 }
 
 
@@ -529,6 +617,18 @@ a.botao {
    ============================================================ */
 
 @media (max-width: 600px) {
+
+  .barra-topo {
+    padding: 8px 12px;
+  }
+
+  .titulo-topo {
+    font-size: 15px;
+  }
+
+  .identificacao {
+    font-size: 12px;
+  }
 
   .conteudo {
     padding: 12px 10px 30px 10px;

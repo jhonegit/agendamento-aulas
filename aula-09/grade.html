@@ -15,7 +15,19 @@
        BARRA DO TOPO: a faixa azul com o nome do sistema
        ============================================================== -->
   <header class="barra-topo">
-    <span class="titulo-topo">Agendamento Escolar</span>
+
+    <div class="barra-topo-esquerda">
+      <span class="titulo-topo">Agendamento Escolar</span>
+    </div>
+
+    <div class="barra-topo-direita">
+      <!-- O js/autenticacao.js escreve aqui o nome de quem entrou.
+           Enquanto ele nao escrever, fica valendo o "carregando...". -->
+      <span id="identificacao-usuario" class="identificacao">carregando...</span>
+
+      <button type="button" id="botao-sair" class="botao botao-secundario">Sair</button>
+    </div>
+
   </header>
 
 
@@ -65,7 +77,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody id="corpo-da-grade">
 
         <!-- ==========================================================
              AS LINHAS DOS HORÁRIOS
@@ -827,16 +839,22 @@
        criou. Trocar a ordem quebra tudo.
        ============================================================== -->
 
-  <!-- 1. O Firebase em si. Estes dois arquivos não são nossos,
-          vêm prontos do próprio Google. -->
+  <!-- 1. O Firebase em si. Estes três arquivos não são nossos,
+          vêm prontos do próprio Google. O do meio é a novidade de
+          hoje: é ele que sabe cuidar de conta e senha. -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
   <!-- 2. O endereço do nosso banco -->
   <script src="js/firebase-config.js"></script>
 
-  <!-- 3. O nosso código, que pergunta ao banco -->
+  <!-- 3. O código que pinta a grade. Hoje ele só fica guardado
+          esperando: quem chama ele é o arquivo de baixo. -->
   <script src="js/reservas.js"></script>
+
+  <!-- 4. O código que descobre quem entrou -->
+  <script src="js/autenticacao.js"></script>
 
 
   <!-- O que esta página faz: -->
