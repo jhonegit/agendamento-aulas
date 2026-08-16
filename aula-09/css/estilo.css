@@ -140,39 +140,7 @@ body {
 }
 
 
-/* --- As duas abas: Entrar e Criar conta --- */
-
-.abas {
-  display: flex;
-  gap: 6px;
-  background-color: var(--fundo-pagina);
-  padding: 4px;
-  border-radius: var(--arredondamento);
-  margin-bottom: 20px;
-}
-
-.aba {
-  flex: 1;                       /* as duas dividem o espaço igualmente */
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 9px;
-  border: none;
-  border-radius: 7px;
-  background: none;
-  color: var(--texto-fraco);
-  cursor: pointer;
-}
-
-/* A aba que está valendo agora fica branca e destacada */
-.aba-ativa {
-  background-color: var(--branco);
-  color: var(--azul-escuro);
-  box-shadow: var(--sombra);
-}
-
-
-/* --- Os campos dos dois formulários --- */
+/* --- Os campos do formulário --- */
 
 .formulario label {
   display: block;
@@ -181,8 +149,7 @@ body {
   margin-bottom: 5px;
 }
 
-.formulario input,
-.formulario select {
+.formulario input {
   width: 100%;
   font-family: inherit;
   font-size: 15px;
@@ -195,8 +162,7 @@ body {
 }
 
 /* O contorno azul que aparece no campo onde você está digitando */
-.formulario input:focus,
-.formulario select:focus {
+.formulario input:focus {
   outline: 2px solid var(--azul-escuro);
   outline-offset: 1px;
 }
@@ -440,8 +406,7 @@ body {
 
   /* A borda já nasce ocupando lugar, mesmo sendo transparente.
      Assim a faixa não muda de tamanho quando ganhar cor. */
-  border: 1px solid transparent;
-  border-left-width: 4px;
+  border: 2px solid transparent;
 }
 
 /* A sigla curta do espaço: BIB ou LAB */
@@ -484,14 +449,14 @@ body {
 .faixa-biblioteca {
   background-color: var(--biblioteca-fundo);
   color: #0a544e;
-  border-left-color: var(--biblioteca);
+  border-color: var(--biblioteca);
 }
 
 /* Laboratório ocupado: roxo */
 .faixa-laboratorio {
   background-color: var(--laboratorio-fundo);
   color: #4c1d95;
-  border-left-color: var(--laboratorio);
+  border-color: var(--laboratorio);
 }
 
 /* A reserva feita pelo próprio professor que está usando o
@@ -503,7 +468,7 @@ body {
 .faixa-minha {
   background-color: var(--minha-fundo);
   color: var(--azul-escuro);
-  border-left-color: var(--azul-escuro);
+  border-color: var(--azul-escuro);
 }
 
 

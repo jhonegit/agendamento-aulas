@@ -27,22 +27,6 @@
 var usuarioLogado = null;
 
 
-/* ------------------------------------------------------------
-   UM AVISO PARA NÓS MESMOS
-
-   Criar conta acontece em duas etapas: primeiro criamos a conta
-   com e-mail e senha, depois gravamos o nome e a função no banco.
-
-   O problema é que o Firebase já considera a pessoa "entrou" na
-   primeira etapa. Sem esta variável, o vigia da Parte 4 acordaria
-   no meio do caminho, não acharia o nome (que ainda não foi
-   gravado) e acharia que a conta está com defeito.
-
-   Enquanto esta variável estiver com o valor true, o vigia espera.
-   ------------------------------------------------------------ */
-var cadastroEmAndamento = false;
-
-
 /* ============================================================
    PARTE 1 - AS FUNÇÕES DE AVISO
    ============================================================ */
@@ -107,12 +91,6 @@ function traduzirErroDoFirebase(erro) {
   if (codigo === "auth/missing-password") {
     return "Digite a senha.";
   }
-  if (codigo === "auth/weak-password") {
-    return "A senha precisa ter pelo menos 6 caracteres.";
-  }
-  if (codigo === "auth/email-already-in-use") {
-    return "Já existe uma conta com esse e-mail. Use a aba Entrar.";
-  }
   if (codigo === "auth/user-not-found" || codigo === "auth/wrong-password" || codigo === "auth/invalid-credential") {
     return "E-mail ou senha incorretos.";
   }
@@ -132,68 +110,7 @@ function traduzirErroDoFirebase(erro) {
 
 
 /* ============================================================
-   PARTE 2 - CRIAR CONTA
-
-   Esta parte chega pronta. São duas etapas, nesta ordem:
-
-   1. Criar a conta com e-mail e senha
-   2. Gravar o nome e a função numa gaveta nova do banco,
-      chamada "usuarios"
-
-   A etapa 2 é necessária porque o Firebase guarda só e-mail e
-   senha. Ele não sabe o nome da pessoa nem o que ela faz na
-   escola.
-   ============================================================ */
-
-function cadastrarUsuario(nome, email, senha, papel) {
-
-  esconderMensagem();
-  mostrarMensagem("Criando sua conta...", "sucesso");
-
-  /* Avisamos o vigia da Parte 4 para esperar as duas etapas. */
-  cadastroEmAndamento = true;
-
-  autenticacao.createUserWithEmailAndPassword(email, senha)
-
-    .then(function (resultado) {
-
-      /* O Firebase devolve o "uid": um código único da pessoa.
-         É a identidade dela dentro do sistema. */
-      var uid = resultado.user.uid;
-
-      /* Agora gravamos o resto no banco. Repare que o nome da
-         ficha é o próprio uid: assim fica fácil achar os dados
-         de quem entrou. */
-      return bancoDeDados.collection("usuarios").doc(uid).set({
-        uid: uid,
-        nome: nome,
-        email: email,
-        papel: papel
-      });
-    })
-
-    .then(function () {
-      /* As duas etapas deram certo. Pode ir para a grade. */
-      cadastroEmAndamento = false;
-      mostrarMensagem("Conta criada! Entrando...", "sucesso");
-      window.location.href = "grade.html";
-    })
-
-    .catch(function (erro) {
-      cadastroEmAndamento = false;
-      mostrarMensagem(traduzirErroDoFirebase(erro), "erro");
-
-      /* Se a conta foi criada mas o nome não, a pessoa fica pela
-         metade. Melhor tirar ela do sistema do que deixar assim. */
-      if (autenticacao.currentUser !== null) {
-        autenticacao.signOut();
-      }
-    });
-}
-
-
-/* ============================================================
-   PARTE 3 - ENTRAR
+   PARTE 2 - ENTRAR
    ============================================================ */
 
 function entrarNoSistema(email, senha) {
@@ -215,7 +132,7 @@ function entrarNoSistema(email, senha) {
 
 
 /* ============================================================
-   PARTE 4 - O VIGIA
+   PARTE 3 - O VIGIA
 
    Esta é a parte mais importante do arquivo.
 
@@ -229,12 +146,6 @@ function entrarNoSistema(email, senha) {
    ============================================================ */
 
 autenticacao.onAuthStateChanged(function (usuarioDoFirebase) {
-
-  /* Se estamos no meio de um cadastro, não fazemos nada aqui.
-     A própria função cadastrarUsuario cuida do que vem depois. */
-  if (cadastroEmAndamento) {
-    return;
-  }
 
   /* Em qual das duas páginas estamos? A gente descobre olhando
      se um pedaço exclusivo daquela página existe. */
@@ -273,12 +184,12 @@ autenticacao.onAuthStateChanged(function (usuarioDoFirebase) {
 
     .then(function (documento) {
 
-      /* Se a ficha não existir, a conta está pela metade. Isso
-         acontece quando o cadastro foi interrompido no meio. */
+      /* Se a ficha não existir, a conta está pela metade: ela tem
+         e-mail e senha, mas ninguém guardou o nome no banco. */
       if (documento.exists === false) {
         mostrarMensagem(
           "Sua conta existe, mas está sem nome e sem função. " +
-          "Crie a conta de novo.",
+          "Avise a secretaria.",
           "erro"
         );
         autenticacao.signOut();
@@ -326,36 +237,13 @@ function escreverIdentificacaoNoTopo() {
 
 
 /* ============================================================
-   PARTE 5 - LIGANDO OS BOTÕES DA TELA
+   PARTE 4 - LIGANDO OS BOTÕES DA TELA
 
    Daqui pra baixo, ligamos cada botão e cada formulário do HTML
    nas funções lá de cima. Sem esta parte, clicar não faz nada.
    ============================================================ */
 
-/* --- As duas abas (só existem no index.html) --- */
-var abaLogin = document.getElementById("aba-login");
-var abaCadastro = document.getElementById("aba-cadastro");
 var formularioLogin = document.getElementById("formulario-login");
-var formularioCadastro = document.getElementById("formulario-cadastro");
-
-if (abaLogin !== null) {
-
-  abaLogin.addEventListener("click", function () {
-    abaLogin.classList.add("aba-ativa");
-    abaCadastro.classList.remove("aba-ativa");
-    formularioLogin.classList.remove("escondido");
-    formularioCadastro.classList.add("escondido");
-    esconderMensagem();
-  });
-
-  abaCadastro.addEventListener("click", function () {
-    abaCadastro.classList.add("aba-ativa");
-    abaLogin.classList.remove("aba-ativa");
-    formularioCadastro.classList.remove("escondido");
-    formularioLogin.classList.add("escondido");
-    esconderMensagem();
-  });
-}
 
 
 /* --- O botão "Entrar" --- */
@@ -371,32 +259,6 @@ if (formularioLogin !== null) {
     var senha = document.getElementById("senha-login").value;
 
     entrarNoSistema(email, senha);
-  });
-}
-
-
-/* --- O botão "Criar conta" --- */
-if (formularioCadastro !== null) {
-
-  formularioCadastro.addEventListener("submit", function (evento) {
-    evento.preventDefault();
-
-    var nome = document.getElementById("nome-cadastro").value.trim();
-    var email = document.getElementById("email-cadastro").value.trim();
-    var senha = document.getElementById("senha-cadastro").value;
-    var papel = document.getElementById("papel-cadastro").value;
-
-    /* Duas conferências antes de incomodar o Firebase. */
-    if (nome === "") {
-      mostrarMensagem("Digite seu nome completo.", "erro");
-      return;
-    }
-    if (senha.length < 6) {
-      mostrarMensagem("A senha precisa ter pelo menos 6 caracteres.", "erro");
-      return;
-    }
-
-    cadastrarUsuario(nome, email, senha, papel);
   });
 }
 

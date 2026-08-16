@@ -74,6 +74,16 @@ function mostrarReservas() {
         faixa.className = "faixa faixa-ocupada " + cor;
         nome.textContent = reserva.professorNome;
 
+
+        /* ======================================================
+
+           ETAPA 4: A TURMA TROCA UMA COISA AQUI
+
+           Esta linha pinta de azul a reserva "minha". O nome
+           está escrito na mão, chumbado no código, desde o dia
+           em que ela foi escrita.
+
+           ====================================================== */
         if (reserva.professorNome === "Jhone") {
           faixa.className = faixa.className + " faixa-minha";
         }

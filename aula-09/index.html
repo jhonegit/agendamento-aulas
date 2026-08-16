@@ -20,59 +20,17 @@
     </header>
 
     <!-- ==============================================================
-         AS DUAS ABAS
-
-         São dois botões comuns. Sozinhos eles não fazem nada: quem
-         troca uma tela pela outra é o js/autenticacao.js.
-
-         A aba que está valendo agora leva a classe "aba-ativa", que
-         é o que deixa ela branca.
-         ============================================================== -->
-    <div class="abas">
-      <button type="button" id="aba-login" class="aba aba-ativa">Entrar</button>
-      <button type="button" id="aba-cadastro" class="aba">Criar conta</button>
-    </div>
-
-    <!-- ==============================================================
-         TELA 1: ENTRAR
-         Para quem já tem conta.
+         A TELA DE ENTRAR
          ============================================================== -->
     <form id="formulario-login" class="formulario">
 
       <label for="email-login">E-mail</label>
-      <input type="email" id="email-login" placeholder="professor@escola.br" required>
+      <input type="email" id="email-login" required>
 
       <label for="senha-login">Senha</label>
-      <input type="password" id="senha-login" placeholder="sua senha" required>
+      <input type="password" id="senha-login" required>
 
       <button type="submit" class="botao botao-principal">Entrar</button>
-    </form>
-
-    <!-- ==============================================================
-         TELA 2: CRIAR CONTA
-         Para quem ainda não tem.
-
-         Esta tela só aparece depois que alguém clica na aba
-         "Criar conta". Antes disso ela fica fora da tela.
-         ============================================================== -->
-    <form id="formulario-cadastro" class="formulario">
-
-      <label for="nome-cadastro">Nome completo</label>
-      <input type="text" id="nome-cadastro" placeholder="Maria da Silva" required>
-
-      <label for="email-cadastro">E-mail</label>
-      <input type="email" id="email-cadastro" placeholder="professor@escola.br" required>
-
-      <label for="senha-cadastro">Senha (mínimo 6 caracteres)</label>
-      <input type="password" id="senha-cadastro" placeholder="crie uma senha" required>
-
-      <label for="papel-cadastro">Você é</label>
-      <select id="papel-cadastro">
-        <option value="professor">Professor(a)</option>
-        <option value="funcionario">Funcionário(a) da secretaria</option>
-      </select>
-
-      <button type="submit" class="botao botao-principal">Criar conta</button>
     </form>
 
     <!-- ==============================================================
