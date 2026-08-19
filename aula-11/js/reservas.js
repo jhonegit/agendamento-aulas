@@ -1,27 +1,25 @@
 /* ============================================================
    ARQUIVO: reservas.js
-   O QUE ELE FAZ: pergunta ao banco quais reservas existem e
-   pinta a grade da semana com elas.
+   O QUE ELE FAZ: conversa com o banco de dados.
 
-   Este é o arquivo que a turma escreveu na aula passada. Ele
-   chega inteiro e consertado.
+   Até a aula passada ele só sabia PERGUNTAR ao banco quais
+   reservas existem, e pintar a grade com elas.
 
-   MUDOU UMA COISA HOJE, e está explicada logo abaixo.
+   Hoje ele aprende a segunda metade do trabalho: GRAVAR uma
+   reserva nova no banco.
    ============================================================ */
 
 
 /* ------------------------------------------------------------
-   POR QUE AGORA ISTO VIROU UMA FUNÇÃO
+   POR QUE ISTO É UMA FUNÇÃO, E NÃO CÓDIGO SOLTO
 
-   Antes, este código rodava sozinho assim que a página abria.
+   Este código não roda sozinho quando a página abre. Ele fica
+   guardado aqui, esperando ser chamado.
 
-   A partir de hoje a grade só pode aparecer para quem entrou no
-   sistema. Então o código não roda mais sozinho: ele fica aqui
-   guardado, esperando ser chamado.
-
-   Quem chama é o js/autenticacao.js, e só depois de confirmar
-   quem é a pessoa. Uma função é isso: um pedaço de código com
-   nome, guardado para ser usado na hora certa.
+   Quem chama é o js/autenticacao.js, depois de confirmar quem é
+   a pessoa. E hoje o js/grade.js vai chamar ele mais uma vez,
+   logo depois de gravar uma reserva nova, para a grade aparecer
+   já atualizada na tela.
    ------------------------------------------------------------ */
 function mostrarReservas() {
 
@@ -75,16 +73,10 @@ function mostrarReservas() {
         nome.textContent = reserva.professorNome;
 
 
-        /* ======================================================
-
-           ETAPA 4: A TURMA TROCA UMA COISA AQUI
-
-           Esta linha pinta de azul a reserva "minha". O nome
-           está escrito na mão, chumbado no código, desde o dia
-           em que ela foi escrita.
-
-           ====================================================== */
-        if (reserva.professorNome === "Jhone") {
+        /* Esta linha pinta de azul a reserva de quem está usando
+           o sistema agora. Foi a última coisa que a turma mexeu
+           na aula passada: aqui havia um nome escrito na mão. */
+        if (reserva.professorNome === usuarioLogado.nome) {
           faixa.className = faixa.className + " faixa-minha";
         }
 
@@ -112,6 +104,49 @@ function mostrarReservas() {
 
       aviso.className = "mensagem mensagem-erro";
     });
+
+}
+
+
+/* ============================================================
+   GRAVAR UMA RESERVA NOVA
+
+   Esta função é a novidade de hoje, e é o coração do sistema
+   inteiro. Sem ela, o site só sabe mostrar o que outra pessoa
+   já reservou.
+
+   Ela recebe três coisas: o dia, o horário e o espaço. Repare
+   que ela NÃO recebe o nome de ninguém, e isso é de propósito:
+   quem reserva é sempre quem está dentro do sistema naquele
+   momento, e esse nome já está guardado no usuarioLogado desde
+   a aula passada.
+
+
+   O NOME DA FICHA NÃO É UM NÚMERO QUALQUER
+
+   Toda ficha guardada no banco tem um nome. Normalmente esse
+   nome é um monte de letras sorteadas pelo próprio banco.
+
+   Aqui a gente escolhe o nome à mão, e ele é sempre montado do
+   mesmo jeito:
+
+       segunda_07:30-08:30_biblioteca
+
+   O banco não deixa existir duas fichas com o mesmo nome dentro
+   da mesma gaveta. Ou seja: montando o nome assim, gravar duas
+   reservas para o mesmo espaço, no mesmo dia e no mesmo horário
+   fica impossível. Isso vai importar muito na próxima aula.
+   ============================================================ */
+function criarReserva(dia, horario, local) {
+
+  /* ==========================================================
+
+     ETAPA 4: AQUI ENTRA O QUE A TURMA ESCREVE
+
+     ========================================================== */
+
+
+
 
 }
 

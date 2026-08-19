@@ -119,15 +119,20 @@ function entrarNoSistema(email, senha) {
   mostrarMensagem("Entrando...", "sucesso");
 
 
-  /* ==========================================================
+  /* ----------------------------------------------------------
+     ESTAS LINHAS A TURMA ESCREVEU NA AULA PASSADA
 
-     ETAPA 1: AQUI ENTRA O QUE A TURMA ESCREVE
+     signInWithEmailAndPassword entrega o e-mail e a senha ao
+     Firebase e pergunta se aquela conta existe.
 
-     ========================================================== */
-
-
-
-
+     A resposta demora, porque vai e volta pela internet. Se der
+     errado, o .catch() pega o erro e a gente mostra ele em
+     português. Se der certo, quem age é o vigia da Parte 3.
+     ---------------------------------------------------------- */
+  autenticacao.signInWithEmailAndPassword(email, senha)
+    .catch(function (erro) {
+      mostrarMensagem(traduzirErroDoFirebase(erro), "erro");
+    });
 }
 
 
@@ -161,14 +166,18 @@ autenticacao.onAuthStateChanged(function (usuarioDoFirebase) {
     usuarioLogado = null;
 
 
-    /* ========================================================
+    /* --------------------------------------------------------
+       ESCRITO PELA TURMA NA AULA PASSADA
 
-       ETAPA 2: AQUI ENTRA O QUE A TURMA ESCREVE
+       Ninguém entrou. Se a pessoa está na grade, ela não pode
+       ficar ali: mandamos ela de volta para a tela de entrar.
 
-       ======================================================== */
-
-
-
+       Se ela já está na tela de entrar, não fazemos nada. É
+       exatamente onde ela deve estar.
+       -------------------------------------------------------- */
+    if (estamosNaPaginaDaGrade) {
+      window.location.href = "index.html";
+    }
 
     return;
   }
@@ -200,16 +209,32 @@ autenticacao.onAuthStateChanged(function (usuarioDoFirebase) {
       var dados = documento.data();
 
 
-      /* ======================================================
+      /* ------------------------------------------------------
+         ESCRITO PELA TURMA NA AULA PASSADA
 
-         ETAPA 3: AQUI ENTRA O QUE A TURMA ESCREVE
+         Aqui a variável mais importante do sistema é preenchida.
+         Daqui pra frente, qualquer arquivo que precise saber
+         quem está usando o sistema pergunta ao usuarioLogado.
 
-         Guardar quem é a pessoa, e decidir para onde ela vai.
+         Hoje é o js/grade.js que vai perguntar, na hora de
+         gravar uma reserva.
+         ------------------------------------------------------ */
+      usuarioLogado = {
+        uid: usuarioDoFirebase.uid,
+        nome: dados.nome,
+        email: dados.email,
+        papel: dados.papel
+      };
 
-         ====================================================== */
+      if (estamosNaPaginaDeLogin) {
+        window.location.href = "grade.html";
+        return;
+      }
 
-
-
+      if (estamosNaPaginaDaGrade) {
+        escreverIdentificacaoNoTopo();
+        mostrarReservas();
+      }
 
     })
 

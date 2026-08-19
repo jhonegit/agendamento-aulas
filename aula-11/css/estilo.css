@@ -100,6 +100,19 @@ body {
   background-color: var(--azul-claro);
 }
 
+/* Versão menor do botão, usada dentro da janelinha de reserva.
+
+   O .botao-principal ocupa a largura inteira, porque na tela de
+   entrar isso fica bem. Dentro da janelinha ele precisa ser só do
+   tamanho da palavra "Reservar", e é o "width: auto" que devolve
+   ele ao tamanho normal. */
+.botao-pequeno {
+  width: auto;
+  padding: 8px 14px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
 
 /* ============================================================
    PARTE 4 - TELA DE ENTRADA (index.html)
@@ -573,7 +586,106 @@ body {
 
 
 /* ============================================================
-   PARTE 11 - AJUSTES PARA TELA DE CELULAR
+   PARTE 11 - A JANELINHA DE RESERVA
+
+   Ela vem pronta hoje. São as regras que fazem uma parte da
+   página passar por cima de todo o resto.
+   ============================================================ */
+
+/* O fundo escuro que cobre a tela inteira.
+
+   "fixed" quer dizer: gruda na janela do navegador, não na
+   página. Ele não sai do lugar nem se a pessoa rolar a tela.
+
+   Os quatro zeros de cima, esquerda, direita e baixo esticam
+   ele até as quatro bordas.
+
+   O último número do rgba é a transparência: 0.55 deixa a grade
+   aparecer por trás, meio apagada. */
+.fundo-do-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 32, 0.55);
+
+  /* Estas três linhas põem a janelinha branca bem no meio */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px;
+
+  /* z-index é a altura da pilha. Um número alto garante que
+     nada da página fique por cima da janelinha. */
+  z-index: 10;
+}
+
+/* A janelinha branca em si */
+.modal {
+  background-color: var(--branco);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 12px 34px rgba(15, 23, 32, 0.28);
+  padding: 18px;
+}
+
+.cabecalho-do-modal {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.cabecalho-do-modal h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* O X do canto */
+.botao-fechar {
+  background: none;
+  border: none;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--texto-fraco);
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.corpo-do-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Cada linha da janelinha é um espaço da escola */
+.linha-do-modal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: var(--arredondamento);
+}
+
+.informacoes-do-local {
+  display: flex;
+  flex-direction: column;
+}
+
+.situacao {
+  font-size: 13px;
+  color: var(--texto-fraco);
+}
+
+
+/* ============================================================
+   PARTE 12 - AJUSTES PARA TELA DE CELULAR
 
    Tudo que está dentro das chaves do "@media" só vale quando
    a tela tem no máximo 600px de largura, que é o tamanho da
