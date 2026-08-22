@@ -3,8 +3,20 @@
    O QUE ELE FAZ: cuida da janelinha que abre quando alguém
    clica numa célula da grade.
 
-   Este arquivo é NOVO. Ele nasce hoje quase vazio, e a turma
-   preenche ele.
+   ESTA PASTA CONTINUA DE ONDE A AULA PAROU.
+
+   O que já está feito, e não precisa ser feito de novo:
+
+   - a janelinha abre no clique, com o dia e o horário certos
+   - ela diz se o espaço está livre ou de quem é
+   - o botão Reservar aparece e some na hora certa
+
+   O que falta é só uma coisa, e é a mais importante: o botão
+   Reservar ainda não grava nada no banco. Clicar nele não faz
+   absolutamente nada.
+
+   São duas etapas, uma em cada arquivo. A ETAPA 1 fica no
+   js/reservas.js, e a ETAPA 2 fica aqui embaixo.
 
    A divisão de trabalho é esta, e vale para o sistema inteiro:
 
@@ -51,14 +63,15 @@ var aviso = document.getElementById("mensagem-do-modal");
    ============================================================ */
 function abrirModal(celula) {
 
-  /* ==========================================================
+  diaAberto = celula.getAttribute("data-dia");
+  horarioAberto = celula.getAttribute("data-horario");
 
-     ETAPA 1: AQUI ENTRA O QUE A TURMA ESCREVE
+  titulo.textContent = diaAberto + ", " + horarioAberto;
 
-     ========================================================== */
+  mostrarSituacao("biblioteca");
+  mostrarSituacao("laboratorio");
 
-
-
+  fundo.classList.remove("escondido");
 
 }
 
@@ -87,14 +100,20 @@ function mostrarSituacao(local) {
   var botao = document.getElementById("botao-reservar-" + local);
 
 
-  /* ==========================================================
+  var chave = diaAberto + "-" + horarioAberto;
+  chave = chave + "-" + local;
 
-     ETAPA 3: AQUI ENTRA O QUE A TURMA ESCREVE
+  var faixa = document.getElementById(chave);
+  var nome = document.getElementById(chave + "-nome");
 
-     ========================================================== */
-
-
-
+  if (faixa.classList.contains("faixa-ocupada")) {
+    situacao.textContent =
+      "Reservado por " + nome.textContent;
+    botao.classList.add("escondido");
+  } else {
+    situacao.textContent = "Livre";
+    botao.classList.remove("escondido");
+  }
 
 }
 
@@ -138,7 +157,7 @@ function reservarEspaco(local) {
 
   /* ==========================================================
 
-     ETAPA 5: AQUI ENTRA O QUE A TURMA ESCREVE
+     ETAPA 2: AQUI ENTRA O QUE A TURMA ESCREVE
 
      ========================================================== */
 
@@ -156,14 +175,14 @@ function reservarEspaco(local) {
    ============================================================ */
 
 
-/* ==============================================================
+var celulas =
+  document.querySelectorAll(".botao-da-celula");
 
-   ETAPA 2: AQUI ENTRA O QUE A TURMA ESCREVE
-
-   ============================================================== */
-
-
-
+celulas.forEach(function (celula) {
+  celula.addEventListener("click", function () {
+    abrirModal(celula);
+  });
+});
 
 /* --- Daqui pra baixo vem pronto --- */
 

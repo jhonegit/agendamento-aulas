@@ -5,8 +5,8 @@
    Até a aula passada ele só sabia PERGUNTAR ao banco quais
    reservas existem, e pintar a grade com elas.
 
-   Hoje ele aprende a segunda metade do trabalho: GRAVAR uma
-   reserva nova no banco.
+   Falta a segunda metade do trabalho: GRAVAR uma reserva nova
+   no banco. É a ETAPA 1, lá embaixo.
    ============================================================ */
 
 
@@ -141,7 +141,7 @@ function criarReserva(dia, horario, local) {
 
   /* ==========================================================
 
-     ETAPA 4: AQUI ENTRA O QUE A TURMA ESCREVE
+     ETAPA 1: AQUI ENTRA O QUE A TURMA ESCREVE
 
      ========================================================== */
 
