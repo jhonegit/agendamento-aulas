@@ -3,20 +3,8 @@
    O QUE ELE FAZ: cuida da janelinha que abre quando alguém
    clica numa célula da grade.
 
-   ESTA PASTA CONTINUA DE ONDE A AULA PAROU.
-
-   O que já está feito, e não precisa ser feito de novo:
-
-   - a janelinha abre no clique, com o dia e o horário certos
-   - ela diz se o espaço está livre ou de quem é
-   - o botão Reservar aparece e some na hora certa
-
-   O que falta é só uma coisa, e é a mais importante: o botão
-   Reservar ainda não grava nada no banco. Clicar nele não faz
-   absolutamente nada.
-
-   São duas etapas, uma em cada arquivo. A ETAPA 1 fica no
-   js/reservas.js, e a ETAPA 2 fica aqui embaixo.
+   Ele nasceu na aula passada. Hoje ele ganha a outra metade:
+   o botão de cancelar, e a decisão de quem enxerga esse botão.
 
    A divisão de trabalho é esta, e vale para o sistema inteiro:
 
@@ -99,6 +87,12 @@ function mostrarSituacao(local) {
   var situacao = document.getElementById("situacao-" + local);
   var botao = document.getElementById("botao-reservar-" + local);
 
+  /* Novo hoje, e já vem pronto: o botão vermelho de cancelar
+     daquele espaço. Ele mora no grade.html, do lado do
+     Reservar, e nasce escondido igual a ele. */
+  var botaoCancelar =
+    document.getElementById("botao-cancelar-" + local);
+
 
   var chave = diaAberto + "-" + horarioAberto;
   chave = chave + "-" + local;
@@ -110,10 +104,54 @@ function mostrarSituacao(local) {
     situacao.textContent =
       "Reservado por " + nome.textContent;
     botao.classList.add("escondido");
+
+
+    /* ========================================================
+
+       ETAPA 4: AQUI ENTRA O QUE A TURMA ESCREVE
+
+       ======================================================== */
+
+
+
+
   } else {
     situacao.textContent = "Livre";
     botao.classList.remove("escondido");
+
+    /* Espaço livre não tem o que cancelar. Já vem pronto. */
+    botaoCancelar.classList.add("escondido");
   }
+
+}
+
+
+/* ============================================================
+   QUEM PODE CANCELAR ESTA RESERVA?
+
+   Duas pessoas podem cancelar uma reserva:
+
+   - quem fez a reserva
+   - a secretaria, que cancela qualquer uma
+
+   Esta função responde sim ou não. Ela recebe o nome que está
+   escrito na faixinha e compara com quem está no sistema.
+
+   ATENÇÃO, e isto é o coração da aula de hoje: esta função NÃO
+   é a proteção de verdade. Ela serve para não mostrar um botão
+   que não ia funcionar. Quem protege mesmo é a regra do
+   servidor, e é por isso que a regra existe.
+   ============================================================ */
+function podeCancelar(nomeDaReserva) {
+
+  /* ==========================================================
+
+     ETAPA 3: AQUI ENTRA O QUE A TURMA ESCREVE
+
+     ========================================================== */
+
+
+
 
 }
 
@@ -155,9 +193,33 @@ function mostrarErroNaJanela(texto) {
    ============================================================ */
 function reservarEspaco(local) {
 
+  criarReserva(diaAberto, horarioAberto, local)
+
+    .then(function () {
+      fecharModal();
+      mostrarReservas();
+    })
+
+    .catch(function (erro) {
+      mostrarErroNaJanela(
+        "Não deu para salvar: " + erro.message);
+    });
+
+}
+
+
+/* ============================================================
+   PARTE 4B - CANCELAR
+
+   Ao escrever, repare que esta função tem exatamente o mesmo
+   desenho da de cima. Muda o verbo e mais nada: chama a função
+   do outro arquivo, e depois fecha a janelinha e redesenha.
+   ============================================================ */
+function cancelarEspaco(local) {
+
   /* ==========================================================
 
-     ETAPA 2: AQUI ENTRA O QUE A TURMA ESCREVE
+     ETAPA 6: AQUI ENTRA O QUE A TURMA ESCREVE
 
      ========================================================== */
 
@@ -217,6 +279,18 @@ document.getElementById("botao-reservar-biblioteca")
 document.getElementById("botao-reservar-laboratorio")
   .addEventListener("click", function () {
     reservarEspaco("laboratorio");
+  });
+
+
+/* Os dois botões "Cancelar", ligados do mesmo jeito. */
+document.getElementById("botao-cancelar-biblioteca")
+  .addEventListener("click", function () {
+    cancelarEspaco("biblioteca");
+  });
+
+document.getElementById("botao-cancelar-laboratorio")
+  .addEventListener("click", function () {
+    cancelarEspaco("laboratorio");
   });
 
 

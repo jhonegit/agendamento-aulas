@@ -2,11 +2,13 @@
    ARQUIVO: reservas.js
    O QUE ELE FAZ: conversa com o banco de dados.
 
-   Até a aula passada ele só sabia PERGUNTAR ao banco quais
-   reservas existem, e pintar a grade com elas.
+   Ele já sabe perguntar ao banco o que existe e gravar reserva
+   nova. Hoje ele aprende as duas últimas coisas: APAGAR uma
+   reserva, e TRADUZIR os erros que o servidor devolve.
 
-   Falta a segunda metade do trabalho: GRAVAR uma reserva nova
-   no banco. É a ETAPA 1, lá embaixo.
+   E hoje entra uma ideia nova, que não é código nosso: o
+   servidor tem regras próprias, e pode recusar o que a gente
+   pedir. Até ontem, quem decidia tudo era esta página.
    ============================================================ */
 
 
@@ -133,15 +135,95 @@ function mostrarReservas() {
        segunda_07:30-08:30_biblioteca
 
    O banco não deixa existir duas fichas com o mesmo nome dentro
-   da mesma gaveta. Ou seja: montando o nome assim, gravar duas
-   reservas para o mesmo espaço, no mesmo dia e no mesmo horário
-   fica impossível. Isso vai importar muito na próxima aula.
+   da mesma gaveta.
+
+   SÓ QUE ISSO NÃO BASTOU, e hoje vocês vão ver por quê. Duas
+   fichas com o mesmo nome não podem existir, mas a segunda
+   gravação estava escrevendo POR CIMA da primeira, em silêncio.
+   O nome continuava único e a reserva do colega sumia.
+
+   Quem resolve isso não é este arquivo. É o servidor.
    ============================================================ */
 function criarReserva(dia, horario, local) {
 
+  var identificador = dia + "_" + horario + "_" + local;
+
+  var novaReserva = {
+    dia: dia,
+    horario: horario,
+    local: local,
+    professorNome: usuarioLogado.nome,
+
+    /* ========================================================
+
+       ETAPA 1: AQUI ENTRA O QUE A TURMA ESCREVE
+
+       Falta UMA linha nesta ficha, e sem ela o servidor recusa
+       a reserva inteira. Repare que a linha de cima já termina
+       com vírgula, esperando por ela.
+
+       ======================================================== */
+
+
+
+
+  };
+
+  return bancoDeDados.collection("reservas")
+    .doc(identificador)
+    .set(novaReserva);
+
+}
+
+
+/* ============================================================
+   APAGAR UMA RESERVA
+
+   Recebe o dia, o horário e o espaço, monta o nome da ficha do
+   mesmo jeito que o criarReserva monta, e manda apagar.
+
+   Quem pode apagar o quê é decidido em DOIS lugares, e os dois
+   são necessários:
+
+   1. Aqui no navegador, para não mostrar botão inútil para
+      quem não pode. Isso é educação com o usuário.
+   2. No servidor, nas regras do Firestore, que é onde a
+      proteção de verdade acontece.
+
+   O item 2 é o indispensável. Alguém esperto burla o item 1
+   mexendo no navegador. Ninguém burla o servidor.
+   ============================================================ */
+function cancelarReserva(dia, horario, local) {
+
   /* ==========================================================
 
-     ETAPA 1: AQUI ENTRA O QUE A TURMA ESCREVE
+     ETAPA 5: AQUI ENTRA O QUE A TURMA ESCREVE
+
+     ========================================================== */
+
+
+
+
+}
+
+
+/* ============================================================
+   O SERVIDOR RECLAMA EM INGLÊS
+
+   Quando o servidor recusa alguma coisa, ele devolve um código
+   técnico, tipo "permission-denied". Ninguém na secretaria da
+   escola vai entender isso.
+
+   Esta função troca cada código por uma frase em português. É
+   exatamente a mesma ideia do traduzirErroDoFirebase que vocês
+   já viram no js/autenticacao.js, só que para o banco em vez de
+   para o login.
+   ============================================================ */
+function traduzirErroDoBanco(erro) {
+
+  /* ==========================================================
+
+     ETAPA 2: AQUI ENTRA O QUE A TURMA ESCREVE
 
      ========================================================== */
 

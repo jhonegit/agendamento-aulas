@@ -909,9 +909,13 @@
 
       <!-- Os dois espaços da escola, um embaixo do outro.
 
-           Os dois já estão escritos aqui, prontos, com o texto "Livre"
-           e o botão de reservar. O JavaScript não cria nada: ele só
-           troca o texto da situação e decide se o botão aparece. -->
+           Cada espaço tem agora DOIS botões: o azul de reservar, que é
+           da aula passada, e o vermelho de cancelar, que é a novidade
+           de hoje.
+
+           Os dois nascem escondidos. O JavaScript não cria botão
+           nenhum: ele só troca o texto da situação e decide, a cada
+           clique, qual dos dois aparece. Às vezes nenhum dos dois. -->
       <div class="corpo-do-modal">
 
         <div class="linha-do-modal">
@@ -921,6 +925,8 @@
           </div>
           <button type="button" class="botao botao-principal botao-pequeno"
                   id="botao-reservar-biblioteca">Reservar</button>
+          <button type="button" class="botao botao-perigo botao-pequeno escondido"
+                  id="botao-cancelar-biblioteca">Cancelar</button>
         </div>
 
         <div class="linha-do-modal">
@@ -930,6 +936,8 @@
           </div>
           <button type="button" class="botao botao-principal botao-pequeno"
                   id="botao-reservar-laboratorio">Reservar</button>
+          <button type="button" class="botao botao-perigo botao-pequeno escondido"
+                  id="botao-cancelar-laboratorio">Cancelar</button>
         </div>
 
       </div>

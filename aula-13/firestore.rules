@@ -1,0 +1,134 @@
+/* ============================================================
+   ARQUIVO: firestore.rules
+   O QUE ELE FAZ: são as regras do SERVIDOR.
+
+   Este arquivo é diferente de todos os outros da pasta.
+
+   Os outros rodam no computador de vocês, dentro do navegador.
+   Este aqui não. Ele mora no servidor do Firebase, longe daqui,
+   e ninguém consegue mexer nele pelo navegador.
+
+   Ele está nesta pasta só para vocês poderem LER. Quem coloca
+   ele no servidor é o professor.
+
+
+   POR QUE ISSO IMPORTA
+
+   Todo o código que a gente escreveu até ontem roda na máquina
+   de quem está usando o site. E código que roda na máquina da
+   pessoa pode ser desligado por ela.
+
+   Então esconder um botão não protege nada. Protege a vista,
+   não o banco.
+
+   Quem protege de verdade é este arquivo, porque ele roda num
+   lugar onde o usuário não alcança.
+   ============================================================ */
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+
+    /* --------------------------------------------------------
+       Duas perguntas que as regras fazem o tempo todo
+       -------------------------------------------------------- */
+
+    /* Tem alguém dentro do sistema fazendo este pedido? */
+    function estaLogado() {
+      return request.auth != null;
+    }
+
+    /* Quem está pedindo é da secretaria?
+
+       Repare que a regra vai buscar a ficha da pessoa na gaveta
+       "usuarios" para descobrir o papel dela. Ela não acredita
+       no que o navegador disser. */
+    function ehFuncionario() {
+      return estaLogado()
+        && exists(/databases/$(database)/documents/usuarios/$(request.auth.uid))
+        && get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.papel == 'funcionario';
+    }
+
+
+    /* ========================================================
+       A GAVETA "usuarios"
+
+       Cada pessoa só enxerga a própria ficha. E ninguém troca de
+       papel sozinho: quem vira secretaria é a escola que decide,
+       pelo painel do Firebase.
+       ======================================================== */
+
+    match /usuarios/{uid} {
+      allow read: if estaLogado() && request.auth.uid == uid;
+      allow create: if estaLogado() && request.auth.uid == uid;
+      allow update, delete: if false;
+    }
+
+
+    /* ========================================================
+       A GAVETA "reservas"
+
+       É aqui que mora a aula de hoje.
+       ======================================================== */
+
+    match /reservas/{reservaId} {
+
+      /* VER: qualquer pessoa de dentro do sistema vê a grade
+         inteira. Isso é de propósito: saber quem já reservou foi
+         um dos pedidos da pesquisa com os professores. */
+      allow read: if estaLogado();
+
+
+      /* CRIAR: só em nome próprio.
+
+         request.auth.uid é o código de quem está pedindo, e o
+         servidor sabe esse código sozinho, sem perguntar para
+         ninguém.
+
+         Esta linha exige que o campo professorUid da ficha seja
+         igual a ele. Ou seja: ninguém reserva no nome de outra
+         pessoa, nem mexendo no navegador. */
+      allow create: if estaLogado()
+        && request.resource.data.professorUid == request.auth.uid;
+
+
+      /* ALTERAR UMA RESERVA QUE JÁ EXISTE.
+
+         Esta é a linha mais importante do arquivo, e é a que
+         resolve o problema de dois professores no mesmo horário.
+
+         Como o nome da ficha é dia_horario_local, quem chega
+         depois tenta gravar numa ficha que já existe. Isso não é
+         criar, é alterar.
+
+         Para trocar de horário, a pessoa cancela e reserva de
+         novo. */
+      allow update: if true;
+
+
+      /* APAGAR:
+         - cada pessoa apaga as reservas dela
+         - a secretaria apaga qualquer uma
+
+         resource.data é a ficha COMO ELA ESTÁ no banco agora. */
+      allow delete: if estaLogado() && (
+           resource.data.professorUid == request.auth.uid
+        || ehFuncionario()
+      );
+    }
+
+
+    /* ========================================================
+       QUALQUER OUTRO CAMINHO É BLOQUEADO
+
+       Se alguém tentar criar uma gaveta que não existe no nosso
+       projeto, o servidor recusa.
+       ======================================================== */
+
+    match /{documento=**} {
+      allow read, write: if false;
+    }
+  }
+}
