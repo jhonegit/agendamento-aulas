@@ -156,11 +156,7 @@ function criarReserva(dia, horario, local) {
 
     /* ========================================================
 
-       ETAPA 1: AQUI ENTRA O QUE A TURMA ESCREVE
-
-       Falta UMA linha nesta ficha, e sem ela o servidor recusa
-       a reserva inteira. Repare que a linha de cima já termina
-       com vírgula, esperando por ela.
+       ETAPA 1
 
        ======================================================== */
 
@@ -197,7 +193,7 @@ function cancelarReserva(dia, horario, local) {
 
   /* ==========================================================
 
-     ETAPA 5: AQUI ENTRA O QUE A TURMA ESCREVE
+     ETAPA 5
 
      ========================================================== */
 
@@ -223,7 +219,7 @@ function traduzirErroDoBanco(erro) {
 
   /* ==========================================================
 
-     ETAPA 2: AQUI ENTRA O QUE A TURMA ESCREVE
+     ETAPA 2
 
      ========================================================== */
 

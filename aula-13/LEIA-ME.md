@@ -19,14 +19,7 @@ Baixe o ZIP de novo.
 - `js/autenticacao.js`, quem entrou no sistema
 - `js/reservas.js`, fala com o banco. Ganha apagar e traduzir erro
 - `js/grade.js`, a janelinha. Ganha o cancelar
-- `firestore.rules`, **novo**, e diferente de todos os outros
-
-## Sobre o firestore.rules
-
-Esse arquivo não roda na sua máquina. Ele roda no servidor, e está aqui só
-para ler. Quem coloca ele no servidor é o professor.
-
-É ele que decide o que o banco aceita e o que recusa.
+- `firestore.rules`, **novo**, as regras do servidor
 
 ## Testando
 

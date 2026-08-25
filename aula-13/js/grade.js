@@ -108,7 +108,7 @@ function mostrarSituacao(local) {
 
     /* ========================================================
 
-       ETAPA 4: AQUI ENTRA O QUE A TURMA ESCREVE
+       ETAPA 4
 
        ======================================================== */
 
@@ -146,7 +146,7 @@ function podeCancelar(nomeDaReserva) {
 
   /* ==========================================================
 
-     ETAPA 3: AQUI ENTRA O QUE A TURMA ESCREVE
+     ETAPA 3
 
      ========================================================== */
 
@@ -219,7 +219,7 @@ function cancelarEspaco(local) {
 
   /* ==========================================================
 
-     ETAPA 6: AQUI ENTRA O QUE A TURMA ESCREVE
+     ETAPA 6
 
      ========================================================== */
 
