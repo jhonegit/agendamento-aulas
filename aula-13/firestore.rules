@@ -25,7 +25,7 @@ service cloud.firestore {
       allow create: if estaLogado()
         && request.resource.data.professorUid == request.auth.uid;
 
-      allow update: if false;
+      allow update: if true;
 
       allow delete: if estaLogado() && (
            resource.data.professorUid == request.auth.uid
